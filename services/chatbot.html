@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Integration Guide</title>
+    <style>
+        :root {
+            /* Primary colors - keeping the same scheme */
+            --primary: #5F7356; /* Deep Moss Green */
+            --primary-dark: #2C3A29; /* Very Deep Forest Green */
+            /* Secondary & Tertiary colors */
+            --secondary: #1F2A1D; /* Almost Black Forest */
+            --tertiary: #A05236; /* Rich Burnt Sienna */
+            /* Accent colors */
+            --accent: #A05236; /* Rich Burnt Sienna */
+            --accent-dark: #7C3A22; /* Deep Mahogany */
+            /* Neutrals */
+            --light: #E5DFC9; /* Antique Parchment */
+            --gray: #6D6555; /* Deep Taupe */
+            --white: #FFFFFF; /* Pure white */
+            --dark-blue: #1C231B; /* Nearly Black Green */
+            
+            /* New additions for futuristic feel */
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --glow: rgba(95, 115, 86, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'San Francisco', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--secondary);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 25% 10%, rgba(95, 115, 86, 0.05) 0%, transparent 25%),
+                radial-gradient(circle at 75% 75%, rgba(160, 82, 54, 0.05) 0%, transparent 25%);
+            background-attachment: fixed;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            background-image: 
+                linear-gradient(135deg, rgba(95, 115, 86, 0.9) 0%, rgba(44, 58, 41, 0.95) 100%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="none"/><path d="M0 50 L100 50 M50 0 L50 100" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></svg>');
+            background-size: cover, 30px 30px;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, transparent 60%, rgba(44, 58, 41, 0.7) 100%);
+            z-index: 0;
+        }
+
+        header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.05em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            letter-spacing: 0.02em;
+        }
+
+        .last-updated {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .chatbot-section {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 5px 15px rgba(0, 0, 0, 0.07);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(109, 101, 85, 0.08);
+        }
+
+        .chatbot-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06), 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatbot-section::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            opacity: 0.05;
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+            z-index: 0;
+        }
+
+        .chatbot-section h2 {
+            color: var(--primary-dark);
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.8rem;
+            font-size: 1.8rem;
+            position: relative;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .chatbot-section h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+            border-radius: 3px;
+        }
+
+        .chatbot-section p {
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+        }
+
+        .chatbot-section ul {
+            margin-bottom: 1.8rem;
+            padding-left: 1.2rem;
+            list-style-type: none;
+        }
+
+        .chatbot-section ul li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .chatbot-section ul li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--primary);
+        }
+        
+        .tip-box {
+            background: linear-gradient(135deg, rgba(95, 115, 86, 0.08) 0%, rgba(95, 115, 86, 0.02) 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(95, 115, 86, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .tip-box::before {
+            content: "💡";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background-color: var(--primary);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert-box {
+            background: linear-gradient(135deg, rgba(160, 82, 54, 0.08) 0%, rgba(160, 82, 54, 0.02) 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(160, 82, 54, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .alert-box::before {
+            content: "⚠️";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background-color: var(--accent);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .code-box {
+            background-color: var(--dark-blue);
+            color: var(--light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .code-box::before {
+            content: "// Code Snippet";
+            position: absolute;
+            top: 0;
+            right: 1.5rem;
+            color: rgba(229, 223, 201, 0.4);
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+
+        .accent-text {
+            color: var(--tertiary);
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .accent-text::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: rgba(160, 82, 54, 0.2);
+            border-radius: 1px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 2rem 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            text-align: left;
+            padding: 1.2rem 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-table th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+        .comparison-table th:last-child {
+            border-top-right-radius: 10px;
+        }
+
+        .comparison-table td {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(109, 101, 85, 0.1);
+            background-color: var(--white);
+            transition: background-color 0.2s ease;
+        }
+
+        .comparison-table tr:hover td {
+            background-color: rgba(229, 223, 201, 0.15);
+        }
+
+        .comparison-table tr:last-child td:first-child {
+            border-bottom-left-radius: 10px;
+        }
+
+        .comparison-table tr:last-child td:last-child {
+            border-bottom-right-radius: 10px;
+        }
+
+        .chatbot-demo {
+            background-color: var(--white);
+            border-radius: 16px;
+            margin: 2.5rem auto;
+            max-width: 380px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1), 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(109, 101, 85, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .chatbot-demo:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 1.2rem;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 80%);
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        .demo-body {
+            padding: 1.5rem;
+            background-color: rgba(229, 223, 201, 0.05);
+            position: relative;
+        }
+
+        .demo-body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(95, 115, 86, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(160, 82, 54, 0.03) 0%, transparent 50%);
+            opacity: 0.8;
+            z-index: 0;
+        }
+
+        .demo-message {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 18px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(5px);
+            max-width: 85%;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, rgba(95, 115, 86, 0.1) 0%, rgba(95, 115, 86, 0.03) 100%);
+            margin-left: auto;
+            border-radius: 18px 18px 0 18px;
+            border: 1px solid rgba(95, 115, 86, 0.1);
+        }
+
+        .bot-message {
+            background: linear-gradient(135deg, rgba(160, 82, 54, 0.1) 0%, rgba(160, 82, 54, 0.03) 100%);
+            margin-right: auto;
+            border-radius: 18px 18px 18px 0;
+            border: 1px solid rgba(160, 82, 54, 0.1);
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--dark-blue) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="none"/><path d="M0 25 L100 25 M0 50 L100 50 M0 75 L100 75 M25 0 L25 100 M50 0 L50 100 M75 0 L75 100" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></svg>');
+            background-size: 50px 50px;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        footer .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .copyright {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.03em;
+        }
+
+        #back-to-top {
+            position: fixed;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 8px 25px rgba(160, 82, 54, 0.25);
+            z-index: 100;
+            font-size: 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(160, 82, 54, 0.4);
+        }
+
+        /* Futuristic elements */
+        .glow-element {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+            z-index: 0;
+            filter: blur(50px);
+            opacity: 0.5;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.1); }
+        }
+
+        /* Newly added progress bar */
+        .progress-container {
+            position: fixed;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 50vh;
+            background-color: rgba(109, 101, 85, 0.1);
+            border-radius: 10px;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: var(--accent);
+            height: 0;
+            border-radius: 10px;
+            transition: height 0.2s ease;
+            box-shadow: 0 0 10px rgba(160, 82, 54, 0.5);
+        }
+
+        /* Newly added section indicators */
+        .section-indicators {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(95, 115, 86, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .section-indicator:hover {
+            background-color: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .section-indicator.active {
+            background-color: var(--accent);
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(160, 82, 54, 0.5);
+        }
+
+        .section-indicator .tooltip {
+            position: absolute;
+            right: 20px;
+            top: 0;
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-indicator:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+            right: 25px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            margin: 3rem 0;
+            padding-left: 50px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -10px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            box-shadow: 0 0 10px rgba(95, 115, 86, 0.5);
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            box-shadow: 0 0 10px rgba(160, 82, 54, 0.5);
+        }
+
+        .timeline-item h3 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .timeline-item p {
+            color: var(--secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Technical indicators */
+        .technical-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-family: 'Consolas', 'Monaco', monospace;
+            opacity: 0.8;
+        }
+
+        .technical-indicator::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+            100% { opacity: 0.5; transform: scale(1); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .container {
+                width: 92%;
+            }
+            
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-indicators, .progress-container {
+                right: 5px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 1rem 0;
+            }
+            
+            header {
+                padding: 2rem 0;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .chatbot-section {
+                padding: 1.8rem;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table th, 
+            .comparison-table td {
+                padding: 0.8rem;
+            }
+
+            .timeline {
+                padding-left: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .chatbot-section h2 {
+                font-size: 1.5rem;
+            }
+            
+            .chatbot-demo {
+                max-width: 100%;
+            }
+            
+            .code-box {
+                font-size: 0.8rem;
+            }
+
+            .section-indicators {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative glow elements -->
+    <div class="glow-element" style="top: 20%; left: 10%;"></div>
+    <div class="glow-element" style="bottom: 30%; right: 15%;"></div>
+    
+    <!-- Progress bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <!-- Section indicators -->
+    <div class="section-indicators" id="sectionIndicators">
+        <!-- Will be populated by JavaScript -->
+    </div>
+    
+    <header id="top">
+        <div class="container">
+            <h1>Chatbot Integration Guide</h1>
+            <p>Enhance customer service and boost conversions with intelligent chatbots</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="chatbot-section" id="why-integrate">
+            <div class="technical-indicator">SEC:01</div>
+            <h2>Why Integrate Chatbots?</h2>
+            <p>Chatbots have evolved from simple rule-based systems to sophisticated AI-powered assistants that can transform your business operations and customer experience.</p>
+            <ul>
+                <li>Provide <span class="accent-text">24/7 customer support</span> without increasing staffing costs</li>
+                <li>Qualify leads and guide customers through your sales funnel</li>
+                <li>Reduce response times from minutes/hours to seconds</li>
+                <li>Collect valuable customer data and insights</li>
+                <li>Free up human agents to handle complex, high-value interactions</li>
+            </ul>
+            <div class="chatbot-demo">
+                <div class="demo-header">Customer Support Chatbot</div>
+                <div class="demo-body">
+                    <div class="demo-message bot-message">Hello! How can I help you today?</div>
+                    <div class="demo-message user-message">I need to track my order #45892</div>
+                    <div class="demo-message bot-message">I'd be happy to help you track order #45892. Let me fetch that information for you...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chatbot-section" id="types">
+            <div class="technical-indicator">SEC:02</div>
+            <h2>Types of Chatbots for E-commerce</h2>
+            <p>Different chatbot types serve different purposes. Understanding these options will help you choose the right solution for your business needs.</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Chatbot Type</th>
+                        <th>Best For</th>
+                        <th>Complexity</th>
+                        <th>Cost Range</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="accent-text">Rule-Based</span></td>
+                        <td>Simple FAQs, guided navigation</td>
+                        <td>Low</td>
+                        <td>$50-300/month</td>
+                    </tr>
+                    <tr>
+                        <td><span class="accent-text">AI/ML-Powered</span></td>
+                        <td>Natural conversations, complex queries</td>
+                        <td>High</td>
+                        <td>$300-2000+/month</td>
+                    </tr>
+                    <tr>
+                        <td><span class="accent-text">AI/ML-Powered</span></td>
+                        <td>Natural conversations, complex queries</td>
+                        <td>High</td>
+                        <td>$300-2000+/month</td>
+                    </tr>
+                    <tr>
+                        <td><span class="accent-text">Hybrid</span></td>
+                        <td>Balance of automation & human handoff</td>
+                        <td>Medium</td>
+                        <td>$200-1000/month</td>
+                    </tr>
+                    <tr>
+                        <td><span class="accent-text">Voice-Enabled</span></td>
+                        <td>Hands-free interaction, accessibility</td>
+                        <td>High</td>
+                        <td>$500-3000+/month</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="tip-box">
+                <p>For most e-commerce businesses, a hybrid solution provides the best balance of cost and functionality. Start with common customer questions and gradually expand your chatbot's capabilities as you gather more data.</p>
+            </div>
+        </div>
+
+        <div class="chatbot-section" id="implementation">
+            <div class="technical-indicator">SEC:03</div>
+            <h2>Implementation Roadmap</h2>
+            <p>Successfully integrating a chatbot requires careful planning and execution. Follow this roadmap to ensure a smooth implementation.</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Phase 1: Planning & Research</h3>
+                    <p>Define your goals, identify key user journeys, and research potential chatbot solutions that align with your business needs.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Phase 2: Design & Development</h3>
+                    <p>Create conversation flows, develop your bot's personality, and build out the technical infrastructure.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Phase 3: Training & Testing</h3>
+                    <p>Train your chatbot with relevant data, conduct thorough testing across different scenarios, and refine based on feedback.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Phase 4: Deployment & Monitoring</h3>
+                    <p>Launch your chatbot, monitor its performance, and continuously improve based on user interactions and analytics.</p>
+                </div>
+            </div>
+            
+            <div class="alert-box">
+                <p>Always have a fallback plan for when your chatbot can't handle a query. This could be escalation to a human agent or a simple message asking for additional information.</p>
+            </div>
+        </div>
+
+        <div class="chatbot-section" id="integration">
+            <div class="technical-indicator">SEC:04</div>
+            <h2>Technical Integration</h2>
+            <p>There are several ways to integrate a chatbot into your e-commerce platform. The method you choose will depend on your technical resources and platform.</p>
+            
+            <h3 style="margin-top: 1.5rem; color: var(--primary-dark); font-size: 1.4rem;">Option 1: Using Third-Party Platforms</h3>
+            <p>Many platforms like Intercom, Drift, or ManyChat offer ready-to-use chatbot solutions with minimal coding required.</p>
+            
+            <div class="code-box">
+// Sample JavaScript for embedding a third-party chatbot
+window.intercomSettings = {
+  app_id: "YOUR_APP_ID",
+  custom_data: {
+    user_id: "{{customer.id}}",
+    plan_name: "{{customer.subscription}}",
+    signed_up: "{{customer.created_at}}"
+  }
+};
+
+(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/YOUR_APP_ID';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+            </div>
+            
+            <h3 style="margin-top: 1.5rem; color: var(--primary-dark); font-size: 1.4rem;">Option 2: API Integration</h3>
+            <p>For more customization, integrate directly with chatbot APIs like Dialogflow, Microsoft Bot Framework, or IBM Watson.</p>
+            
+            <div class="code-box">
+// Sample code for API integration with Dialogflow
+const dialogflow = require('@google-cloud/dialogflow');
+const uuid = require('uuid');
+
+async function runDialogflow(projectId, sessionId, query, languageCode) {
+  const sessionClient = new dialogflow.SessionsClient();
+  const sessionPath = sessionClient.projectAgentSessionPath(
+    projectId,
+    sessionId
+  );
+
+  const request = {
+    session: sessionPath,
+    queryInput: {
+      text: {
+        text: query,
+        languageCode: languageCode,
+      },
+    },
+  };
+
+  const responses = await sessionClient.detectIntent(request);
+  return responses[0].queryResult;
+}
+
+// Handle user message
+app.post('/api/message', async (req, res) => {
+  const projectId = 'your-project-id';
+  const sessionId = uuid.v4();
+  const result = await runDialogflow(
+    projectId,
+    sessionId,
+    req.body.message,
+    'en-US'
+  );
+  
+  res.json({
+    fulfillmentText: result.fulfillmentText,
+    intent: result.intent.displayName
+  });
+});
+            </div>
+
+            <div class="tip-box">
+                <p>When using API integration, implement proper error handling and rate limiting to ensure your application remains stable even if the chatbot service experiences issues.</p>
+            </div>
+        </div>
+
+        <div class="chatbot-section" id="best-practices">
+            <div class="technical-indicator">SEC:05</div>
+            <h2>Best Practices for Conversational Design</h2>
+            <p>Creating natural, helpful conversational flows is crucial for chatbot success. Follow these best practices to ensure your bot delivers a great user experience.</p>
+            
+            <ul>
+                <li><span class="accent-text">Keep it simple</span> - Focus on solving one problem well before expanding capabilities</li>
+                <li><span class="accent-text">Design for failures</span> - Create graceful fallbacks when your bot doesn't understand a query</li>
+                <li><span class="accent-text">Personality matters</span> - Give your bot a consistent tone that matches your brand</li>
+                <li><span class="accent-text">Provide clear options</span> - Guide users with suggested replies or menus when appropriate</li>
+                <li><span class="accent-text">Respect user time</span> - Keep messages concise and allow users to skip explanations</li>
+                <li><span class="accent-text">Test with real users</span> - Regularly gather feedback from actual customers</li>
+            </ul>
+            
+            <div class="chatbot-demo">
+                <div class="demo-header">Conversational Design Example</div>
+                <div class="demo-body">
+                    <div class="demo-message bot-message">Hi there! I can help you find the perfect product. Are you shopping for yourself or someone else?</div>
+                    <div class="demo-message user-message">For my wife</div>
+                    <div class="demo-message bot-message">Great! What's the occasion? Birthday, anniversary, or just because?</div>
+                    <div class="demo-message user-message">Anniversary</div>
+                    <div class="demo-message bot-message">Wonderful! I recommend our bestselling anniversary gifts. Would you prefer jewelry, experiences, or personalized items?</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chatbot-section" id="analytics">
+            <div class="technical-indicator">SEC:06</div>
+            <h2>Measuring Success & Analytics</h2>
+            <p>To ensure your chatbot is delivering value, you need to track the right metrics and continuously optimize performance.</p>
+            
+            <h3 style="margin-top: 1.5rem; color: var(--primary-dark); font-size: 1.4rem;">Key Performance Indicators</h3>
+            <ul>
+                <li><span class="accent-text">Engagement Rate</span> - Percentage of site visitors who interact with your chatbot</li>
+                <li><span class="accent-text">Completion Rate</span> - Percentage of conversations that achieve their intended goal</li>
+                <li><span class="accent-text">Containment Rate</span> - Percentage of queries handled without human intervention</li>
+                <li><span class="accent-text">Conversion Rate</span> - Percentage of chatbot interactions that lead to sales</li>
+                <li><span class="accent-text">Customer Satisfaction</span> - Score based on post-conversation feedback</li>
+            </ul>
+            
+            <div class="tip-box">
+                <p>Set up A/B testing for different conversation flows to identify which approaches drive better results. Small improvements can lead to significant gains over time.</p>
+            </div>
+            
+            <h3 style="margin-top: 1.5rem; color: var(--primary-dark); font-size: 1.4rem;">Analytics Implementation</h3>
+            <div class="code-box">
+// Sample code for tracking chatbot events with Google Analytics 4
+function trackChatbotEvent(eventName, eventParams) {
+  if (typeof gtag === 'function') {
+    gtag('event', eventName, eventParams);
+  }
+}
+
+// Track conversation start
+trackChatbotEvent('chatbot_conversation_start', {
+  source_page: window.location.pathname
+});
+
+// Track bot responses
+trackChatbotEvent('chatbot_response', {
+  intent: responseData.intent,
+  confidence_score: responseData.confidence,
+  response_time_ms: responseTime
+});
+
+// Track goal completion
+trackChatbotEvent('chatbot_goal_complete', {
+  goal_type: 'purchase',
+  value: orderValue,
+  currency: 'USD'
+});
+            </div>
+        </div>
+
+        <div class="chatbot-section" id="future-trends">
+            <div class="technical-indicator">SEC:07</div>
+            <h2>Future Trends in E-commerce Chatbots</h2>
+            <p>The chatbot landscape is rapidly evolving. Stay ahead of the curve by understanding these emerging trends.</p>
+            
+            <ul>
+                <li><span class="accent-text">Multimodal Interactions</span> - Combining text, voice, and visual elements for richer experiences</li>
+                <li><span class="accent-text">Emotion Detection</span> - Identifying and responding to customer sentiment</li>
+                <li><span class="accent-text">Hyper-Personalization</span> - Tailoring conversations based on deep customer data</li>
+                <li><span class="accent-text">Augmented Reality Integration</span> - Helping customers visualize products through chatbot interfaces</li>
+                <li><span class="accent-text">Blockchain for Verified Transactions</span> - Secure purchasing directly through chatbot conversations</li>
+            </ul>
+            
+            <div class="alert-box">
+                <p>While adopting cutting-edge features can differentiate your brand, always prioritize reliability and core functionality over bleeding-edge technology.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <h2>Start Transforming Your Customer Experience Today</h2>
+            <p>Ready to take the next step? Contact our team for a personalized consultation.</p>
+            <div class="copyright">© 2025 AutoShop. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <a href="#top" id="back-to-top">↑</a>
+
+    <script>
+        // Optimized scroll handling
+// Back to top button
+const backToTopButton = document.getElementById('back-to-top');
+const progressBar = document.getElementById('progressBar');
+const sections = document.querySelectorAll('.chatbot-section');
+const sectionIndicators = document.querySelectorAll('.section-indicator');
+
+// Throttle function to limit how often a function runs during scroll
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+// Update progress bar efficiently
+function updateProgressBar() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / scrollHeight) * 100;
+    
+    // Use requestAnimationFrame for smoother updates
+    requestAnimationFrame(() => {
+        progressBar.style.height = `${progress}%`;
+    });
+}
+
+// Update section indicators with IntersectionObserver instead of on scroll
+const observerOptions = {
+    root: null, // viewport
+    rootMargin: '-50% 0px -50% 0px', // consider middle 50% of viewport
+    threshold: 0 // trigger as soon as any part is visible
+};
+
+const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            // Find and activate the corresponding indicator
+            const sectionId = entry.target.id;
+            sectionIndicators.forEach(indicator => {
+                if (indicator.getAttribute('data-section') === sectionId) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+    });
+}, observerOptions);
+
+// Observe all sections
+sections.forEach(section => {
+    sectionObserver.observe(section);
+});
+
+// Show/hide back to top button with IntersectionObserver
+const topObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        // If top section is not intersecting, show the button
+        if (!entry.isIntersecting) {
+            backToTopButton.classList.add('show');
+        } else {
+            backToTopButton.classList.remove('show');
+        }
+    });
+}, { threshold: 0, rootMargin: '-100px 0px 0px 0px' });
+
+// Observe the top section
+const topSection = document.querySelector('#why-integrate');
+if (topSection) {
+    topObserver.observe(topSection);
+}
+
+// Use throttled scroll for progress bar only
+window.addEventListener('scroll', throttle(() => {
+    updateProgressBar();
+}, 100));
+
+// Add click handlers for section indicators
+sectionIndicators.forEach(indicator => {
+    indicator.addEventListener('click', () => {
+        const sectionId = indicator.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+// Initialize
+updateProgressBar();
+
+// Additional performance improvements
+document.addEventListener('DOMContentLoaded', () => {
+    // Reduce animation complexity for glow elements on mobile
+    if (window.innerWidth < 768) {
+        const glowElements = document.querySelectorAll('.glow-element');
+        glowElements.forEach(element => {
+            element.style.animation = 'none';
+            element.style.opacity = '0.3';
+        });
+    }
+});
+    </script>
+</body>
+</html>

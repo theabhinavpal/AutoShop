@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify Theme Customization</title>
+    <style>
+        :root {
+            /* Primary colors */
+            --primary: #5F7356; /* Deep Moss Green (sophisticated main color) */
+            --primary-dark: #2C3A29; /* Very Deep Forest Green (darker variant) */
+            /* Secondary & Tertiary colors */
+            --secondary: #1F2A1D; /* Almost Black Forest (for headers/text) */
+            --tertiary: #A05236; /* Rich Burnt Sienna (distinctive accent) */
+            /* Accent colors */
+            --accent: #A05236; /* Rich Burnt Sienna (for highlights) */
+            --accent-dark: #7C3A22; /* Deep Mahogany (darker accent) */
+            /* Neutrals */
+            --light: #E5DFC9; /* Antique Parchment (sophisticated light tone) */
+            --gray: #6D6555; /* Deep Taupe (professional gray) */
+            --white: #FFFFFF; /* Pure white */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--secondary);
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            background-image: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 1.5rem auto 0;
+        }
+
+        .customization-section {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            border-left: 5px solid var(--primary);
+        }
+
+        .customization-section h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.8rem;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            position: relative;
+        }
+
+        .customization-step {
+            margin-bottom: 2.5rem;
+            padding-left: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .customization-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: var(--gray);
+            opacity: 0.3;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary);
+            color: var(--white);
+            width: 38px;
+            height: 38px;
+            line-height: 38px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 0.7rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            position: absolute;
+            left: -20px;
+            top: 0;
+            z-index: 2;
+            border: 2px solid var(--white);
+        }
+
+        .step-title {
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            display: block;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .step-description {
+            margin-left: 0.5rem;
+            position: relative;
+        }
+        
+        .step-description p {
+            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
+        }
+
+        .step-description ul {
+            margin-top: 0.8rem;
+            margin-left: 1.5rem;
+        }
+
+        .step-description li {
+            margin-bottom: 0.7rem;
+            position: relative;
+            padding-left: 0.8rem;
+        }
+
+        .step-description li::before {
+            content: '';
+            position: absolute;
+            left: -0.8rem;
+            top: 0.7rem;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--accent);
+        }
+
+        .accent-text {
+            color: var(--tertiary);
+            font-weight: 600;
+        }
+
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            position: relative;
+            background-image: linear-gradient(to right, var(--primary-dark) 0%, var(--primary) 100%);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Progress bar */
+        .progress-container {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 60vh;
+            background-color: rgba(0,0,0,0.1);
+            border-radius: 3px;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: var(--accent);
+            height: 0%;
+            border-radius: 3px;
+            transition: height 0.1s;
+            position: relative;
+        }
+
+        .progress-indicator {
+            position: absolute;
+            right: 10px;
+            top: 0;
+            background-color: var(--accent);
+            color: var(--white);
+            font-size: 0.7rem;
+            padding: 3px 6px;
+            border-radius: 3px;
+            transform: translateX(-100%) translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .progress-container:hover .progress-indicator {
+            opacity: 1;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translateY(20px);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            border: none;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .back-to-top svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--white);
+        }
+
+        /* Step highlight effect */
+        .customization-step.active {
+            transform: translateX(5px);
+        }
+
+        .customization-step.active .step-number {
+            background-color: var(--accent);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 1rem 0;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .customization-section {
+                padding: 1.8rem;
+            }
+            
+            .step-description {
+                margin-left: 0;
+            }
+
+            .progress-container {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .customization-step {
+                padding-left: 1.5rem;
+            }
+
+            .step-number {
+                width: 32px;
+                height: 32px;
+                line-height: 32px;
+                left: -16px;
+                font-size: 0.9rem;
+            }
+
+            .step-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Shopify Theme Customization</h1>
+            <p>Our detailed approach to transforming your online store</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="customization-section">
+            <h2>How We Customize Your Shopify Theme</h2>
+            
+            <div class="timeline"></div>
+            
+            <div class="customization-step" id="step1">
+                <span class="step-number">1</span>
+                <span class="step-title">Theme Selection</span>
+                <div class="step-description">
+                    <p>We carefully select the best theme for your specific business and industry.</p>
+                    <ul>
+                        <li>Evaluate your business needs and product catalog to determine optimal theme structure</li>
+                        <li>Review premium and free themes to find the perfect match for your brand</li>
+                        <li>Consider industry-specific features required for your store</li>
+                        <li>Select a theme with appropriate layout options and flexibility</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="customization-step" id="step2">
+                <span class="step-number">2</span>
+                <span class="step-title">Brand Identity Implementation</span>
+                <div class="step-description">
+                    <p>We implement your brand identity throughout the theme for a consistent visual experience.</p>
+                    <ul>
+                        <li>Apply your color palette to all theme elements and sections</li>
+                        <li>Upload and implement your logo with proper sizing and placement</li>
+                        <li>Select and configure typography to match your brand guidelines</li>
+                        <li>Create a cohesive visual identity across all pages</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="customization-step" id="step3">
+                <span class="step-number">3</span>
+                <span class="step-title">Homepage Design & Layout</span>
+                <div class="step-description">
+                    <p>We craft a compelling homepage that showcases your brand and products effectively.</p>
+                    <ul>
+                        <li>Design a hero section that captures attention and communicates your value proposition</li>
+                        <li>Configure featured collections to highlight your best-selling products</li>
+                        <li>Create engaging content sections that tell your brand story</li>
+                        <li>Implement promotional banners and call-to-action elements</li>
+                        <li>Optimize section ordering for maximum impact and conversions</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="customization-step" id="step4">
+                <span class="step-number">4</span>
+                <span class="step-title">Product Page Optimization</span>
+                <div class="step-description">
+                    <p>We enhance product pages to maximize conversions and improve customer experience.</p>
+                    <ul>
+                        <li>Customize product image display and gallery functionality</li>
+                        <li>Configure product description layout for optimal readability</li>
+                        <li>Set up variant selectors and option displays</li>
+                        <li>Add trust badges and security indicators</li>
+                        <li>Implement related products and upsell features</li>
+                        <li>Configure review systems if required</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="customization-step" id="step5">
+                <span class="step-number">5</span>
+                <span class="step-title">Collection Page Refinement</span>
+                <div class="step-description">
+                    <p>We optimize collection pages to make product discovery seamless and intuitive.</p>
+                    <ul>
+                        <li>Configure collection page layouts and grid settings</li>
+                        <li>Set up filtering and sorting options</li>
+                        <li>Customize collection headers and banners</li>
+                        <li>Optimize product card displays with appropriate information</li>
+                        <li>Implement pagination and loading features</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="customization-step" id="step6">
+                <span class="step-number">6</span>
+                <span class="step-title">Navigation & Menu Structure</span>
+                <div class="step-description">
+                    <p>We create intuitive navigation systems that help customers find what they're looking for.</p>
+                    <ul>
+                        <li>Design and configure main navigation menu</li>
+                        <li>Set up dropdown menus and mega menus if appropriate</li>
+                        <li>Create mobile-friendly navigation experience</li>
+                        <li>Configure footer navigation and information</li>
+                        <li>Implement breadcrumbs for improved user experience</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="customization-step" id="step7">
+                <span class="step-number">7</span>
+                <span class="step-title">Cart & Checkout Optimization</span>
+                <div class="step-description">
+                    <p>We optimize the cart and checkout process to reduce abandonment and increase conversions.</p>
+                    <ul>
+                        <li>Customize cart page layout and functionality</li>
+                        <li>Configure ajax cart features for better user experience</li>
+                        <li>Set up free shipping thresholds and notifications</li>
+                        <li>Implement cross-sell opportunities in the cart</li>
+                        <li>Optimize checkout flow within Shopify's capabilities</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="customization-step" id="step8">
+                <span class="step-number">8</span>
+                <span class="step-title">Custom Page Creation</span>
+                <div class="step-description">
+                    <p>We design and build custom pages that match your theme and enhance your brand story.</p>
+                    <ul>
+                        <li>Create an engaging About Us page that tells your brand story</li>
+                        <li>Design custom contact pages with integrated forms</li>
+                        <li>Build FAQ pages with organized information architecture</li>
+                        <li>Create policy pages with proper formatting</li>
+                        <li>Develop any additional custom pages as needed</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="customization-step" id="step9">
+                <span class="step-number">9</span>
+                <span class="step-title">Mobile Responsiveness Enhancement</span>
+                <div class="step-description">
+                    <p>We ensure your store looks and functions perfectly on all devices.</p>
+                    <ul>
+                        <li>Test and optimize all pages for mobile devices</li>
+                        <li>Make mobile-specific adjustments to layouts and elements</li>
+                        <li>Ensure touch-friendly navigation and buttons</li>
+                        <li>Optimize image sizes and loading for mobile connections</li>
+                        <li>Test across multiple device types and screen sizes</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="customization-step" id="step10">
+                <span class="step-number">10</span>
+                <span class="step-title">Advanced Customization & Coding</span>
+                <div class="step-description">
+                    <p>For specific needs, we can implement advanced custom code to extend your theme's functionality.</p>
+                    <ul>
+                        <li>Modify theme Liquid code for custom functionality</li>
+                        <li>Add custom JavaScript for enhanced interactive elements</li>
+                        <li>Implement custom CSS for specific design requirements</li>
+                        <li>Create custom sections and blocks if needed</li>
+                        <li>Integrate with third-party services via custom code</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="customization-step" id="step11">
+                <span class="step-number">11</span>
+                <span class="step-title">Performance Optimization</span>
+                <div class="step-description">
+                    <p>We optimize your theme for fast loading and smooth performance.</p>
+                    <ul>
+                        <li>Compress and optimize all images</li>
+                        <li>Minimize CSS and JavaScript</li>
+                        <li>Implement lazy loading for improved page speed</li>
+                        <li>Remove unused code and features</li>
+                        <li>Test performance using Google PageSpeed and other tools</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="customization-step" id="step12">
+                <span class="step-number">12</span>
+                <span class="step-title">Final Review & Quality Assurance</span>
+                <div class="step-description">
+                    <p>We thoroughly test every aspect of your customized theme before finalizing.</p>
+                    <ul>
+                        <li>Perform cross-browser testing across Chrome, Firefox, Safari, and Edge</li>
+                        <li>Test all interactive elements and functionalities</li>
+                        <li>Verify consistent branding across all pages</li>
+                        <li>Check all links and buttons</li>
+                        <li>Ensure seamless customer journey from landing to checkout</li>
+                        <li>Provide final review report with any recommendations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p class="copyright">© 2025 AutoShop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path>
+        </svg>
+    </button>
+
+    <!-- Progress bar -->
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-indicator">0%</div>
+        </div>
+    </div>
+
+    <script>
+    // Progress bar functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const progressBar = document.querySelector('.progress-bar');
+        const progressIndicator = document.querySelector('.progress-indicator');
+        const backToTopButton = document.getElementById('backToTop');
+        const steps = document.querySelectorAll('.customization-step');
+        
+        function updateProgressBar() {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight - windowHeight;
+            const scrollTop = window.scrollY;
+            const progress = (scrollTop / documentHeight) * 100;
+            
+            progressBar.style.height = progress + '%';
+            progressIndicator.textContent = Math.round(progress) + '%';
+            
+            // Show back to top button after scrolling a bit
+            if (scrollTop > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+            
+            // Highlight the current step
+            steps.forEach((step, index) => {
+                const rect = step.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.6 && rect.bottom > windowHeight * 0.3) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+        }
+        
+        // Back to top functionality
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Update progress on scroll
+        window.addEventListener('scroll', updateProgressBar);
+        
+        // Initial update
+        updateProgressBar();
+    });
+    </script>
+</body>
+</html>

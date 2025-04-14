@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steps for Dropshipping Automation</title>
+    <style>
+        :root {
+            /* Primary colors */
+            --primary: #5F7356; /* Deep Moss Green (sophisticated main color) */
+            --primary-dark: #2C3A29; /* Very Deep Forest Green (darker variant) */
+            /* Secondary & Tertiary colors */
+            --secondary: #1F2A1D; /* Almost Black Forest (for headers/text) */
+            --tertiary: #A05236; /* Rich Burnt Sienna (distinctive accent) */
+            /* Accent colors */
+            --accent: #A05236; /* Rich Burnt Sienna (for highlights) */
+            --accent-dark: #7C3A22; /* Deep Mahogany (darker accent) */
+            /* Neutrals */
+            --light: #E5DFC9; /* Antique Parchment (sophisticated light tone) */
+            --gray: #6D6555; /* Deep Taupe (professional gray) */
+            --white: #FFFFFF; /* Pure white */
+            --dark-blue: #1C231B; /* Nearly Black Green (replacing dark blue) */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'SF Pro Display', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--secondary);
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced grid line background for more technical feel */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 99.5%, rgba(95, 115, 86, 0.08) 0.5%),
+                linear-gradient(transparent 99.5%, rgba(95, 115, 86, 0.08) 0.5%);
+            background-size: 30px 30px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        /* Enhanced header with more technical elements */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 4rem 0 5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 5px solid var(--accent);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        /* Enhanced futuristic header elements */
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 25%),
+                radial-gradient(circle at 80% 60%, rgba(255, 255, 255, 0.03) 0%, transparent 30%);
+            animation: pulse 25s infinite linear;
+            pointer-events: none;
+        }
+
+        /* Technical circuit-like patterns in header */
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.05) 49%, transparent 51%),
+                linear-gradient(-45deg, transparent 48%, rgba(255, 255, 255, 0.02) 49%, transparent 51%);
+            background-size: 60px 60px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+            letter-spacing: 0.5px;
+        }
+
+        /* Enhanced step sections */
+        .step-section {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            border: 1px solid rgba(95, 115, 86, 0.1);
+        }
+
+        .step-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Enhanced step number indicators */
+        .step-section::before {
+            content: attr(data-step);
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent);
+            color: var(--white);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(160, 82, 54, 0.3);
+            z-index: 1;
+            transform: rotate(-5deg);
+        }
+
+        .step-section h2 {
+            color: var(--primary-dark);
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .step-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+            border-radius: 3px;
+        }
+
+        .step-section p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            color: var(--secondary);
+        }
+
+        .step-section ul {
+            margin-bottom: 1.8rem;
+            padding-left: 1.5rem;
+            list-style-type: none;
+        }
+
+        .step-section ul li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* Enhanced list markers for a technical look */
+        .step-section ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+        
+        /* Enhanced tip boxes */
+        .step-section .tips {
+            background-color: rgba(95, 115, 86, 0.08);
+            border-radius: 8px;
+            padding: 1.2rem 1.5rem;
+            margin: 1.8rem 0;
+            position: relative;
+            border-left: 4px solid var(--primary);
+            box-shadow: inset 0 0 15px rgba(95, 115, 86, 0.05);
+        }
+
+        .step-section .tips::before {
+            content: '💡';
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Enhanced warning boxes */
+        .step-section .warning {
+            background-color: rgba(160, 82, 54, 0.08);
+            border-radius: 8px;
+            padding: 1.2rem 1.5rem;
+            margin: 1.8rem 0;
+            position: relative;
+            border-left: 4px solid var(--accent);
+            box-shadow: inset 0 0 15px rgba(160, 82, 54, 0.05);
+        }
+
+        .step-section .warning::before {
+            content: '⚠️';
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        .accent-text {
+            color: var(--tertiary);
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .accent-text::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--tertiary);
+            opacity: 0.3;
+        }
+
+        /* Enhanced footer with more technical elements */
+        footer {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--dark-blue) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 4rem 0 3rem;
+            margin-top: 4rem;
+            position: relative;
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+            padding-top: 5rem;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.03) 10px, rgba(255, 255, 255, 0.03) 20px),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 25%);
+            pointer-events: none;
+        }
+
+        .copyright {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Enhanced Back to Top Button */
+        #back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            font-size: 1.2rem;
+        }
+
+        #back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Enhanced Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
+            width: 0%;
+            box-shadow: 0 0 10px rgba(160, 82, 54, 0.3);
+        }
+
+        /* Enhanced Timeline Navigation with Technical Look */
+        .timeline {
+            position: fixed;
+            top: 50%;
+            right: 25px;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .timeline-point {
+            width: 12px;
+            height: 12px;
+            background-color: var(--light);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+
+        .timeline-point.active {
+            background-color: var(--accent);
+            transform: scale(1.2) rotate(45deg);
+        }
+
+        .timeline-point:hover::after {
+            content: attr(data-step);
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        .timeline-line {
+            width: 2px;
+            height: 15px;
+            background-color: var(--gray);
+            opacity: 0.5;
+        }
+
+        /* Enhanced Right Progress Indicator */
+        .vertical-progress {
+            position: fixed;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            height: 60%;
+            width: 3px;
+            background-color: rgba(109, 101, 85, 0.2);
+            z-index: 99;
+            border-radius: 3px;
+        }
+
+        .vertical-progress-fill {
+            width: 100%;
+            background-color: var(--accent);
+            position: absolute;
+            bottom: 0;
+            height: 0%;
+            transition: height 0.1s ease;
+            border-radius: 3px;
+        }
+
+        /* Enhanced Futuristic Elements */
+        .tech-element {
+            position: absolute;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .tech-circuit {
+            position: fixed;
+            bottom: 5%;
+            left: 5%;
+            width: 200px;
+            height: 200px;
+            border: 1px solid rgba(95, 115, 86, 0.1);
+            border-radius: 50%;
+            opacity: 0.4;
+        }
+
+        .tech-circuit::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            border: 1px dashed rgba(95, 115, 86, 0.2);
+            border-radius: 50%;
+        }
+
+        .tech-circuit::after {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 30%;
+            width: 40%;
+            height: 40%;
+            background: radial-gradient(circle, rgba(95, 115, 86, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .tech-lines {
+            position: fixed;
+            top: 10%;
+            right: 5%;
+            width: 150px;
+            height: 150px;
+            opacity: 0.2;
+            background: 
+                linear-gradient(0deg, transparent 49%, var(--primary) 50%, transparent 51%) 0 0 / 30px 30px,
+                linear-gradient(90deg, transparent 49%, var(--primary) 50%, transparent 51%) 0 0 / 30px 30px;
+        }
+
+        /* Animation for content */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-section {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .step-section:nth-child(1) { animation-delay: 0.1s; }
+        .step-section:nth-child(2) { animation-delay: 0.2s; }
+        .step-section:nth-child(3) { animation-delay: 0.3s; }
+        .step-section:nth-child(4) { animation-delay: 0.4s; }
+        .step-section:nth-child(5) { animation-delay: 0.5s; }
+        .step-section:nth-child(6) { animation-delay: 0.6s; }
+        .step-section:nth-child(7) { animation-delay: 0.7s; }
+        .step-section:nth-child(8) { animation-delay: 0.8s; }
+        .step-section:nth-child(9) { animation-delay: 0.9s; }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .timeline, .vertical-progress {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 92%;
+                padding: 1rem 0;
+            }
+            
+            header {
+                padding: 2rem 0 3rem;
+                clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+            
+            .step-section {
+                padding: 1.8rem;
+            }
+            
+            .step-section::before {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+                top: -10px;
+                left: -10px;
+            }
+            
+            .tech-element {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="vertical-progress">
+        <div class="vertical-progress-fill" id="verticalProgressFill"></div>
+    </div>
+
+    <div class="tech-element tech-circuit"></div>
+    <div class="tech-element tech-lines"></div>
+
+    <header>
+        <div class="container">
+            <h1>Steps for Dropshipping Automation</h1>
+            <p>Your complete guide to building a future-proof automated dropshipping business</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="step-section" data-step="1">
+            <h2>Market Research & Product Selection</h2>
+            <p>The foundation of a successful automated dropshipping business is identifying profitable products and niches. Use automation tools to find winning products before investing time and resources.</p>
+            <ul>
+                <li>Use <span class="accent-text">market research tools</span> to identify trending products with high profit margins</li>
+                <li>Analyze competitor pricing and strategies using automated scanning tools</li>
+                <li>Set up automated alerts for emerging product trends across different marketplaces</li>
+                <li>Use AI-powered product research tools to find items with low competition but high demand</li>
+            </ul>
+            <div class="tips">
+                <p><strong>Pro Tip:</strong> Focus on products with selling prices between $15-$70 for optimal profit margins after accounting for advertising costs.</p>
+            </div>
+        </div>
+
+        <div class="step-section" data-step="2">
+            <h2>Supplier Integration & Management</h2>
+            <p>Establish reliable connections with suppliers and set up automated communication channels to streamline order processing.</p>
+            <ul>
+                <li>Integrate with multiple suppliers to reduce dependency risks</li>
+                <li>Implement <span class="accent-text">supplier API connections</span> for real-time inventory updates</li>
+                <li>Set up automatic supplier selection based on price, availability, and shipping times</li>
+                <li>Create backup supplier chains for popular products to prevent stockouts</li>
+            </ul>
+            <div class="warning">
+                <p><strong>Warning:</strong> Always test sample products from new suppliers before adding them to your automated workflow to ensure quality standards are met.</p>
+            </div>
+        </div>
+
+        <div class="step-section" data-step="3">
+            <h2>E-commerce Platform Setup & Integration</h2>
+            <p>Choose and configure your sales platforms with automation in mind from the beginning.</p>
+            <ul>
+                <li>Select an e-commerce platform with robust API capabilities</li>
+                <li>Install necessary <span class="accent-text">automation apps and plugins</span> for your platform</li>
+                <li>Set up product feed synchronization between suppliers and your store</li>
+                <li>Configure automated pricing rules (cost-plus, competitor-based, dynamic)</li>
+                <li>Implement inventory threshold alerts to prevent overselling</li>
+            </ul>
+        </div>
+
+        <div class="step-section" data-step="4">
+            <h2>Product Listing Automation</h2>
+            <p>Create systems that automatically generate optimized product listings across your sales channels.</p>
+            <ul>
+                <li>Use <span class="accent-text">AI content generators</span> to create unique product descriptions</li>
+                <li>Set up automated image optimization and watermarking</li>
+                <li>Implement bulk listing tools to quickly add multiple products</li>
+                <li>Create templates for consistent product information across all listings</li>
+                <li>Schedule automatic updates for seasonal products and promotions</li>
+            </ul>
+            <div class="tips">
+                <p><strong>Pro Tip:</strong> Use AI tools to generate product titles that include high-converting keywords while remaining readable and appealing to customers.</p>
+            </div>
+        </div>
+
+        <div class="step-section" data-step="5">
+            <h2>Order Processing Automation</h2>
+            <p>Implement systems that handle orders with minimal manual intervention.</p>
+            <ul>
+                <li>Set up <span class="accent-text">automatic order forwarding</span> to suppliers</li>
+                <li>Implement fraud detection systems to flag suspicious orders</li>
+                <li>Configure automatic payment verification and processing</li>
+                <li>Create order batching for more efficient processing</li>
+                <li>Set up automatic email notifications at key order stages</li>
+            </ul>
+        </div>
+
+        <div class="step-section" data-step="6">
+            <h2>Customer Service Automation</h2>
+            <p>Develop systems to handle common customer inquiries without constant manual attention.</p>
+            <ul>
+                <li>Implement <span class="accent-text">AI-powered chatbots</span> for common questions</li>
+                <li>Set up automatic tracking updates and delivery notifications</li>
+                <li>Create an automated email sequence for post-purchase follow-up</li>
+                <li>Develop automated return and refund processing systems</li>
+                <li>Configure review request automation to build social proof</li>
+            </ul>
+            <div class="warning">
+                <p><strong>Warning:</strong> Always maintain a human escalation path for complex customer issues that automation cannot resolve satisfactorily.</p>
+            </div>
+        </div>
+
+        <div class="step-section" data-step="7">
+            <h2>Marketing & Advertising Automation</h2>
+            <p>Create systems to promote your products and attract targeted traffic without constant manual work.</p>
+            <ul>
+                <li>Set up <span class="accent-text">automated social media campaigns</span></li>
+                <li>Implement dynamic retargeting ads that update automatically</li>
+                <li>Create email marketing automation sequences</li>
+                <li>Configure automatic budget adjustments based on ad performance</li>
+                <li>Set up cross-selling and upselling automations on your store</li>
+            </ul>
+        </div>
+
+        <div class="step-section" data-step="8">
+            <h2>Analytics & Optimization</h2>
+            <p>Implement systems that monitor performance and make data-driven adjustments automatically.</p>
+            <ul>
+                <li>Set up <span class="accent-text">automated performance reports</span> for key metrics</li>
+                <li>Implement A/B testing automations for product pages</li>
+                <li>Configure automatic price adjustments based on demand and competition</li>
+                <li>Create inventory forecasting models to predict future needs</li>
+                <li>Set up profitability alerts to identify underperforming products</li>
+            </ul>
+            <div class="tips">
+                <p><strong>Pro Tip:</strong> Schedule a weekly review of your automation systems to identify any bottlenecks or opportunities for further optimization.</p>
+            </div>
+        </div>
+
+        <div class="step-section" data-step="9">
+            <h2>Getting Started Today</h2>
+            <p>Ready to transform your dropshipping business with automation? Here's how to begin:</p>
+            <ul>
+                <li>Assess your current processes and identify manual bottlenecks</li>
+                <li>Start small with one automation area before expanding</li>
+                <li>Invest in reliable tools that integrate well together</li>
+                <li>Monitor your automated systems regularly during initial setup</li>
+                <li>Stay updated on new automation technologies in the e-commerce landscape</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="timeline">
+        <div class="timeline-point" data-step="Step 1"></div>
+        <div class="timeline-line"></div>
+        <div class="timeline-point" data-step="Step 2"></div>
+        <div class="timeline-line"></div>
+        <div class="timeline-point" data-step="Step 3"></div>
+        <div class="timeline-line"></div>
+        <div class="timeline-point" data-step="Step 4"></div>
+        <div class="timeline-line"></div>
+        <div class="timeline-point" data-step="Step 5"></div>
+        <div class="timeline-line"></div>
+        <div class="timeline-point" data-step="Step 6"></div>
+        <div class="timeline-line"></div>
+        <div class="timeline-point" data-step="Step 7"></div>
+        <div class="timeline-line"></div>
+        <div class="timeline-point" data-step="Step 8"></div>
+        <div class="timeline-line"></div>
+        <div class="timeline-point" data-step="Step 9"></div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 AutoShop. All rights reserved.</p>
+            <p class="copyright">This guide is regularly updated with the latest automation strategies and tools.</p>
+        </div>
+    </footer>
+
+    <a href="#" id="back-to-top" title="Back to Top">↑</a>
+
+    <script>
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('back-to-top');
+        const progressBar = document.getElementById('progressBar');
+        const verticalProgressFill = document.getElementById('verticalProgressFill');
+        const timelinePoints = document.querySelectorAll('.timeline-point');
+        const stepSections = document.querySelectorAll('.step-section');
+        
+        // Update scroll progress
+        window.addEventListener('scroll', () => {
+            // Calculate scroll percentage
+            const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+            
+            // Back to top button visibility
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+            
+            // Update horizontal progress bar
+            progressBar.style.width = scrolled + '%';
+            
+            // Update vertical progress bar
+            verticalProgressFill.style.height = scrolled + '%';
+            
+            // Update timeline active points
+            const currentPos = window.scrollY + 200;
+            stepSections.forEach((section, index) => {
+                if (section.offsetTop <= currentPos && 
+                    (index === stepSections.length - 1 || stepSections[index + 1].offsetTop > currentPos)) {
+                    timelinePoints.forEach(point => point.classList.remove('active'));
+                    timelinePoints[index].classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth scroll to top
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Timeline navigation
+        timelinePoints.forEach((point, index) => {
+            point.addEventListener('click', () => {
+                window.scrollTo({
+                    top: stepSections[index].offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Initialize the first timeline point as active
+        timelinePoints[0].classList.add('active');
+        
+        // Run animation for sections in viewport
+        function checkVisibility() {
+            stepSections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const isVisible = (rect.top <= window.innerHeight * 0.8);
+                
+                if (isVisible) {
+                    section.style.opacity = "1";
+                }
+            });
+        }
+        
+        // Check visibility on load and scroll
+        window.addEventListener('load', checkVisibility);
+        window.addEventListener('scroll', checkVisibility);
+    </script>
+</body>
+</html>
