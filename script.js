@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
     " Inbox Automation",
     " Facebook Ads",
     " Apps Integration",
-    " Chat-Bot Integration",
+    " ChatBot Integration",
     " Instagram Ads",
   ];
   
